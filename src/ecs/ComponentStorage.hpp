@@ -5,13 +5,13 @@
 #include "../core/EntityId.hpp"
 
 template<typename T>
-class ComponentStorage
+class ComponentStorage : public IComponentStorage
 {
     public:
     
     void add(EntityId entity, T component) { components[entity] = component; }
     
-    T& get(EntityId entity) { return components.at(entity) }
+    T& get(EntityId entity) { return components.at(entity); }
     
     bool has(EntityId entity) { return components.contains(entity); }
 
@@ -26,6 +26,13 @@ class ComponentStorage
     private:
         std::unordered_map<EntityId, T> components;
 };
+
+
+class IComponentStorage {
+    public:
+    virtual ~IComponentStorage() = default;
+};
+
 
 // template<typename T>
 // void ComponentStorage<T>::add(EntityId entity, T component) {
