@@ -4,6 +4,13 @@
 
 #include "../core/EntityId.hpp"
 
+
+class IComponentStorage {
+    public:
+    virtual ~IComponentStorage() = default;
+};
+
+
 template<typename T>
 class ComponentStorage : public IComponentStorage
 {
@@ -25,12 +32,6 @@ class ComponentStorage : public IComponentStorage
     
     private:
         std::unordered_map<EntityId, T> components;
-};
-
-
-class IComponentStorage {
-    public:
-    virtual ~IComponentStorage() = default;
 };
 
 

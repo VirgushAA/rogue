@@ -4,40 +4,63 @@
 #include "src/components/Health.hpp"
 #include "src/components/Transform.hpp"
 #include "src/components/Inventory.hpp"
+#include "src/components/Mana.hpp"
+
+#include "src/world/World.hpp"
 
 // debug for now
 
 int main() {
 
-    ComponentStorage<Inventory> a;
-    // a.add(1, Health{100, 100});
-    // a.add(2, Health{200, 200});
-    // a.add(1, Transform{300, 1500});
+    World world;
 
-    EntityId item1 = 1111;
-    EntityId item2 = 2222;
+    EntityId player = world.create_entity();
+    EntityId goblin = world.create_entity();
 
-    a.add(1, Inventory{{item1,item2}});
-    a.add(2, Inventory{{item2}});
+    EntityId item1 = world.create_entity();
+    EntityId item2 = world.create_entity();
+    EntityId item3 = world.create_entity();
+
+    world.add<Health>(player, Health{100, 100});
+    world.add<Health>(goblin, Health{200, 200});
+
+    std::cout << "player hp - " << world.get<Health>(player).current << " : " << world.get<Health>(player).maximum;
+    std::cout << "   |   ";
+    std::cout << "goblin hp - " << world.get<Health>(goblin).current << " : " << world.get<Health>(goblin).maximum << std::endl;
+    std::cout << "----------------------\n" << "\n";
+
+    world.add<Mana>(player, Mana{300, 300});
+
+    std::cout << "player mana - " << world.get<Mana>(player).current << " : " << world.get<Mana>(player).maximum << std::endl;
+    std::cout << "----------------------\n" << "\n";
+
+    world.add<Transform>(player, Transform{10, 20});
+    world.add<Transform>(goblin, Transform{11, 19});
+
+    std::cout << "player position - " << world.get<Transform>(player).x << " : " << world.get<Transform>(player).y;
+    std::cout << "   |   ";
+    std::cout << "goblin position - " << world.get<Transform>(goblin).x << " : " << world.get<Transform>(goblin).y << std::endl;
+    std::cout << "------------------\n" << "\n";
 
 
-    for (const auto& [entity, Inventory] : a) {
-        for (const auto& EntityId : Inventory.Items) {
-            std::cout << entity << ": " << EntityId << '\n';
-        }
-    }
+    world.add<Inventory>(player, Inventory{{item1, item3}});
+    world.add<Inventory>(player, Inventory{{item2}});
 
-    // нужен менеджер, что такое std::type_index
+    world.get<Health>(player).current -= 30;
+    world.get<Mana>(player).current -= 50;
+    world.get<Health>(goblin).current -= 20;
 
-    // a.get(1).current -= 50;
+    std::cout << "----------------------\n" << "\n";
+    std::cout << "player mana - " << world.get<Mana>(player).current << " : " << world.get<Mana>(player).maximum << std::endl;
+    std::cout << "----------------------\n" << "\n";
+    std::cout << "----------------------\n" << "\n";
+    std::cout << "player hp - " << world.get<Health>(player).current << " : " << world.get<Health>(player).maximum;
+    std::cout << "   |   ";
+    std::cout << "goblin hp - " << world.get<Health>(goblin).current << " : " << world.get<Health>(goblin).maximum << std::endl;
+    std::cout << "----------------------\n" << "\n";
 
-    // for (const auto& [entity, health] : a) {
-    //     std::cout << entity << ": " << health.current << '\n';
-    // }
 
-    // a.add(1, Health{1000, 1000});
-
-    // std::cout << a.get(14).current;
+    std::cout << "We are here!" << std::endl;
 
     return 0;
 }
