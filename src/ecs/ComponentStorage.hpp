@@ -8,6 +8,7 @@
 class IComponentStorage {
     public:
     virtual ~IComponentStorage() = default;
+    virtual std::size_t size() const = 0;
 };
 
 
@@ -18,11 +19,15 @@ class ComponentStorage : public IComponentStorage
     
     void add(EntityId entity, T component) { components[entity] = component; }
     
+    const T& get(EntityId entity) const { return components.at(entity); }
+
     T& get(EntityId entity) { return components.at(entity); }
-    
-    bool has(EntityId entity) { return components.contains(entity); }
+
+    bool has(EntityId entity) const { return components.contains(entity); } //return components.find(entity) != components.end(); c++17
 
     void remove(EntityId entity) { components.erase(entity); }
+
+    std::size_t size() const override { return components.size(); }
 
 
     auto begin() { return components.begin(); }
@@ -33,26 +38,3 @@ class ComponentStorage : public IComponentStorage
     private:
         std::unordered_map<EntityId, T> components;
 };
-
-
-// template<typename T>
-// void ComponentStorage<T>::add(EntityId entity, T component) {
-//     components[entity] = component;
-// }
-
-// template<typename T>
-// T& ComponentStorage<T>::get(EntityId entity) {
-//     if (components.contains(entity)) {
-//         return components.at(entity);
-//     }
-// }
-
-// template<typename T>
-// bool ComponentStorage<T>::has(EntityId entity) {
-//     return components.contains(entity);
-// }
-
-// template<typename T>
-// void ComponentStorage<T>::remove(EntityId entity) {
-//     components.erase(entity);
-// }

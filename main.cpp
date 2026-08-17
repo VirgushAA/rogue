@@ -59,6 +59,10 @@ int main() {
     std::cout << "goblin hp - " << world.get<Health>(goblin).current << " : " << world.get<Health>(goblin).maximum << std::endl;
     std::cout << "----------------------\n" << "\n";
 
+    for (EntityId entity : world.query<Transform, Mana>()) {
+        std::cout << entity << "\n";
+    }
+    // std::cout << world.has<Transform>(player) << "\n";
 
     std::cout << "We are here!" << std::endl;
 

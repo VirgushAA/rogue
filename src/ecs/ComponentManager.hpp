@@ -2,6 +2,7 @@
 
 #include <typeindex>
 #include <memory>
+#include <stdexcept>
 
 #include "ComponentStorage.hpp"
 
@@ -12,11 +13,21 @@ class ComponentManager {
     template<typename T>
     ComponentStorage<T>& get() {
 
-        auto it = storages.find(typeid(T));
-    
-        // auto* storage = dynamic_cast<ComponentStorage<T>*>(it->second.get());
+        auto it = findStorage<T>();
 
-        return *dynamic_cast<ComponentStorage<T>*>(it->second.get());;
+        if (!it) throw std::runtime_error("Component storage does not exist");
+
+        return *it;
+    }
+
+    template<typename T>
+    const ComponentStorage<T>& get() const {
+
+        auto it = findStorage<T>();
+
+        if (!it) throw std::runtime_error("Component storage does not exist");
+
+        return *it;
     }
 
     template<typename T>
@@ -41,10 +52,38 @@ class ComponentManager {
     }
 
     template<typename T>
+    ComponentStorage<T>* findStorage() {
+        auto it = storages.find(typeid(T));
+
+        if (it == storages.end()) { 
+            return nullptr;
+        }
+
+        return dynamic_cast<ComponentStorage<T>*>(it->second.get());
+    }
+
+    template<typename T>
+    const ComponentStorage<T>* findStorage() const {
+        auto it = storages.find(typeid(T));
+
+        if (it == storages.end()) {
+            return nullptr;
+        }
+
+        return dynamic_cast<const ComponentStorage<T>*>(it->second.get());
+    }
+
+    template<typename T>
     void add(EntityId entity, T component) { storage<T>().add(entity, component); }
 
     template<typename T>
     T& get(EntityId entity) { return storage<T>().get(entity); }
+
+    template<typename T>
+    bool has(EntityId entity) const { return get<T>().has(entity); }
+    
+    template<typename T>
+    void remove(EntityId entity) { storage<T>().remove(entity); }
 
     private:
 

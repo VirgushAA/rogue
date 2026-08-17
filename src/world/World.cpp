@@ -3,5 +3,11 @@
 
 
 EntityId World::create_entity() {
-    return next_entity_id++;
+    EntityId entity = next_entity_id++;
+
+    entities_.insert(entity);
+
+    return entity;
 }
+
+const std::unordered_set<EntityId>& World::entities() const { return entities_; }
