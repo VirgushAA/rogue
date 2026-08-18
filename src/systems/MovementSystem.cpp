@@ -1,7 +1,7 @@
 #include "MovementSystem.hpp"
 
-#include "src/components/Transform.hpp"
-#include "src/components/Velocity.hpp"
+// #include "src/components/Transform.hpp"
+// #include "src/components/Velocity.hpp"
 
 
 void MovementSystem::update(World& world, float dt) {

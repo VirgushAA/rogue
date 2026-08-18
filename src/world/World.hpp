@@ -1,9 +1,11 @@
+#pragma once
+
 #include <unordered_set>
 #include <vector>
 
 #include "../ecs/ComponentManager.hpp"
-#include "../components/Transform.hpp"
-#include "../components/Velocity.hpp"
+// #include "../components/Transform.hpp"
+// #include "../components/Velocity.hpp"
 
 
 class World {

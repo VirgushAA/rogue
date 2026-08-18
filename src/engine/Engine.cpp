@@ -1,7 +1,6 @@
 // #include <ctime>
 
 #include "Engine.hpp"
-#include "../game/Game.hpp"
 
 
 void Engine::run() {
@@ -15,4 +14,3 @@ void Engine::run() {
         // renderer.render(game.world())
     }
 }
-

@@ -2,6 +2,9 @@
 
 #include "../world/World.hpp"
 
+#include "../components/Transform.hpp"
+#include "../components/Velocity.hpp"
+
 
 class MovementSystem {
 
