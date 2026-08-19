@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "../ecs/ComponentManager.hpp"
+#include "../events/EventManager.hpp"
+#include "../events/events.hpp"
 // #include "../components/Transform.hpp"
 // #include "../components/Velocity.hpp"
 
@@ -38,13 +40,22 @@ class World {
         for (const auto& [entity, component] : *firstStorage) {
             if ((components.has<Rest>(entity) && ...)) query.push_back(entity);
         }
-        
-        return query;
 
+        return query;
     }
+
+    template<typename T>
+    void emit(T event) { events.push(event); };
+    
+    template<typename T>
+    const std::vector<T>& getEvents() const { return events.get<T>(); }
+
+    template<typename T>
+    void clearEvents() { events.clear<T>(); }
 
     private:
 
+    EventManager events;
     ComponentManager components;
     std::unordered_set<EntityId> entities_;
     EntityId next_entity_id = 1;

@@ -6,7 +6,7 @@
 class Engine {
 
 public:
-    Engine(Game& gane);
+    Engine(Game& game) : game(game) {};
 
     void run();
 

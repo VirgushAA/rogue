@@ -2,5 +2,5 @@
 
 
 void Game::update(float dt) {
-    dt++;
+    systems.update(world, dt);
 }
