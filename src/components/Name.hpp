@@ -5,5 +5,5 @@
 
 struct Name
 {
-    std::string name;
+    std::string value;
 };

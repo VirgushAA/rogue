@@ -1,8 +1,10 @@
+#include <iostream>
 #include <chrono>
 
 #include "Engine.hpp"
+#include "../rendering/Renderer.hpp"
 
-float updateTime(auto& previousTime);
+float updateTime(std::chrono::steady_clock::time_point& previousTime);
 
 // Engine::Engine(Game& game) : game(game) {};
 
@@ -10,18 +12,26 @@ void Engine::run() {
     
     bool running = true;
     auto previousTime = std::chrono::steady_clock::now();
+    float dt = updateTime(previousTime);
+    char action = 0;
+    Renderer rd;
+    game.moc();
 
-    while (true) {
+    while (running) {
 
-        float dt = updateTime(previousTime);
+        dt = updateTime(previousTime);
 
+        game.action(action);
         game.update(dt);
+        
+        rd.render(game.getWorld());
 
-        // renderer.render(game.world())
+        std::cin.get(action);
+        if (action != EOF) { if (action == 'q') running = false; }
     }
 }
 
-float updateTime(std::chrono::steady_clock::time_point previousTime) {
+float updateTime(std::chrono::steady_clock::time_point& previousTime) {
     auto currentTime = std::chrono::steady_clock::now();
     std::chrono::duration<float> deltaTime = currentTime - previousTime; // разница
     previousTime = currentTime;

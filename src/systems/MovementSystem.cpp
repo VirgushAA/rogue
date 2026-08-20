@@ -13,5 +13,6 @@ void MovementSystem::update(World& world, float dt) {
         
         transform.x += velocity.x * dt;
         transform.y += velocity.y * dt;
+
     }
 }

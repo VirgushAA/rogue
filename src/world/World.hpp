@@ -6,8 +6,13 @@
 #include "../ecs/ComponentManager.hpp"
 #include "../events/EventManager.hpp"
 #include "../events/events.hpp"
-// #include "../components/Transform.hpp"
-// #include "../components/Velocity.hpp"
+#include "../components/Transform.hpp"
+#include "../components/Velocity.hpp"
+#include "../components/Name.hpp"
+#include "../components/Health.hpp"
+#include "../components/Mana.hpp"
+#include "../components/Inventory.hpp"
+#include "../components/Damage.hpp"
 
 
 class World {
