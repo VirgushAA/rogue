@@ -13,7 +13,7 @@ void Renderer::render(World& world) {
 
 void Renderer::drawGrid(std::vector<char>& scene) {
     for (int x = 0; x <= width; ++x) std::cout << '-';
-    std::cout << "-\n";
+    std::cout << "+\n";
     for (int y = 0; y < height; y++) {
         std::cout << '|';
         for (int x = 0; x < width; x++) {
@@ -22,7 +22,7 @@ void Renderer::drawGrid(std::vector<char>& scene) {
         std::cout << "|\n";
     }
     for (int x = 0; x <= width; ++x) std::cout << '-';
-    std::cout << "-\n";
+    std::cout << "+\n";
 }
 
 void Renderer::drawElements(World& world, std::vector<char>& scene) {

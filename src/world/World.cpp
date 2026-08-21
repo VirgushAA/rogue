@@ -12,4 +12,4 @@ EntityId World::create_entity() {
 
 const std::unordered_set<EntityId>& World::entities() const { return entities_; }
 
-// void World::emit(DamageEvent event) { events.push(event); }
+std::vector<MoveCommand> World::commands() { return commands_; }

@@ -58,10 +58,21 @@ class World {
     template<typename T>
     void clearEvents() { events.clear<T>(); }
 
+    std::vector<MoveCommand> commands();
+
     private:
 
     EventManager events;
     ComponentManager components;
     std::unordered_set<EntityId> entities_;
     EntityId next_entity_id = 1;
+
+    std::vector<MoveCommand> commands_;
+};
+
+#include <string>
+struct MoveCommand {
+    EntityId target;
+    int x;
+    int y;
 };
