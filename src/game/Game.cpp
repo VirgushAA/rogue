@@ -8,19 +8,7 @@ void Game::update(float dt) {
 World& Game::getWorld() { return world; }
 
 void Game::action(char action) {
-
-    switch (action) {
-        case 'w': world.get<Transform>(1).y -= 1;
-        break;
-        case 's': world.get<Transform>(1).y += 1;
-        break;
-        case 'a': world.get<Transform>(1).x -= 1;
-        break;
-        case 'd': world.get<Transform>(1).x += 1;
-        break;
-        default:
-        break;
-    }
+    systems.input().update(world, action);
 }
 
 void Game::moc() {

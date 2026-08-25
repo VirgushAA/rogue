@@ -5,6 +5,7 @@ EntityId EntityFactory::createPlayer(World& world) {
     EntityId id = world.create_entity();
 
     world.add<Name>(id, {"Player"});
+    world.add<PlayerControlled>(id, {true});
     world.add<Transform>(id, {40, 22});
     world.add<Velocity>(id, {0, 0});
     world.add<Health>(id, {100, 100});

@@ -21,10 +21,10 @@ void Engine::run() {
 
         dt = updateTime(previousTime);
 
+        rd.render(game.getWorld());
+
         game.action(action);
         game.update(dt);
-        
-        rd.render(game.getWorld());
 
         std::cin.get(action);
         if (action != EOF) { if (action == 'q') running = false; }

@@ -5,7 +5,7 @@
 struct DamageEvent {
     EntityId source;
     EntityId target;
-    int damage;
+    int value;
 };
 
 struct CollisionEvent {

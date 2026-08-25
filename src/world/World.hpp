@@ -13,6 +13,15 @@
 #include "../components/Mana.hpp"
 #include "../components/Inventory.hpp"
 #include "../components/Damage.hpp"
+#include "../components/PlayerControlled.hpp"
+
+
+#include <string>
+struct MoveCommand {
+    EntityId target;
+    int x;
+    int y;
+};
 
 
 class World {
@@ -58,7 +67,7 @@ class World {
     template<typename T>
     void clearEvents() { events.clear<T>(); }
 
-    std::vector<MoveCommand> commands();
+    std::vector<MoveCommand>& commands();
 
     private:
 
@@ -68,11 +77,4 @@ class World {
     EntityId next_entity_id = 1;
 
     std::vector<MoveCommand> commands_;
-};
-
-#include <string>
-struct MoveCommand {
-    EntityId target;
-    int x;
-    int y;
 };

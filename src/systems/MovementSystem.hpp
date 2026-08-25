@@ -10,5 +10,6 @@ class MovementSystem {
 
     public:
     void update(World& world, float deltaTime);
-    
+    void update(World& world);
+
 };
