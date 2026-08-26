@@ -15,4 +15,6 @@ class Renderer {
 
     const int height = 25;
     const int width = 80;
+
+    private:
 };

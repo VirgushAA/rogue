@@ -30,4 +30,5 @@ void MovementSystem::update(World& world) {
         transform.x += cmd.x;
         transform.y += cmd.y;
     }
+    world.commands().clear();
 }

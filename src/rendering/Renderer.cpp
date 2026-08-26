@@ -26,7 +26,7 @@ void Renderer::drawGrid(std::vector<char>& scene) {
 }
 
 void Renderer::drawElements(World& world, std::vector<char>& scene) {
-    for (EntityId entity : world.entities()) {
+    for (EntityId entity : world.query<Transform>()) {
         Transform entityTransform = world.get<Transform>(entity);
         Name entotyName = world.get<Name>(entity);
         int entityIndex = entityTransform.y * width + entityTransform.x;
