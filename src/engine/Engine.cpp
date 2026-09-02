@@ -1,10 +1,7 @@
 #include <iostream>
-#include <chrono>
 
 #include "Engine.hpp"
 #include "../rendering/Renderer.hpp"
-
-float updateTime(std::chrono::steady_clock::time_point& previousTime);
 
 // Engine::Engine(Game& game) : game(game) {};
 

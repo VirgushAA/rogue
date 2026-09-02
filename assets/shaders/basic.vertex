@@ -1,0 +1,41 @@
+#version 450 core
+
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aColor;
+
+out vec3 vertexColor;
+
+uniform float angle;
+
+void main() {
+
+    const vec2 pivot = vec2( 0.0f, -0.16667f );
+    vec2 centeredXY = aPos.xy - pivot;
+
+    mat4 rotation = mat4(
+        cos(angle), -sin(angle), 0.0f, 0.0f,
+        sin(angle), cos(angle), 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f);
+
+    vec4 rotated = rotation * vec4( centeredXY, aPos.z, 1.0 );
+    vec2 rotatedXY = rotated.xy + pivot;
+
+    gl_Position = vec4( rotatedXY, aPos.z, 1.0 );
+
+    vertexColor = aColor;
+}
+
+// для вращеняи по X
+// mat4 rotation = mat4(
+//         1.0f, 0.0f, 0.0f, 0.0f,
+//         0.0f, cos(angle), -sin(angle), 0.0f,
+//         0.0f, sin(angle), cos(angle), 0.0f,
+//         0.0f, 0.0f, 0.0f, 1.0f
+//     );
+// для вращеняи по Y
+
+// cos(angle), 0.0f, sin(angle), 0.0f,
+// 0.0f, 1.0f, 0.0f, 0.0f,
+// -sin(angle), 0.0f, cos(angle), 0.0f,
+// 0.0f, 0.0f, 0.0f, 1.0f

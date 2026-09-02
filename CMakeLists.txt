@@ -13,9 +13,33 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 file(GLOB_RECURSE SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/glad.c"
 )
 
 add_executable(rogue ${SOURCES})
+
+# Папки с хедерами
+target_include_directories(rogue PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/SDL/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/glad/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+# Путь к сборке SDL
+target_link_directories(rogue PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/external/SDL/lib)
+
+# Зависимости
+target_link_libraries(rogue PRIVATE
+    SDL3
+    opengl32
+    gdi32
+    winmm
+    dxgi
+    ole32
+)
+
+
+
 # add_executable(rogue main.cpp
 #     src/world/World.cpp
 #     src/engine/Engine.cpp
@@ -28,22 +52,3 @@ add_executable(rogue ${SOURCES})
 #     src/systems/MovementSystem.cpp
 #     src/systems/SystemManager.cpp
 # )
-
-# Папки с хедерами
-target_include_directories(rogue PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/SDL/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-# Путь к сборке SDL
-target_link_directories(rogue PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/SDL/lib)
-
-# Зависимости
-target_link_libraries(rogue PRIVATE
-    SDL3
-    opengl32
-    gdi32
-    winmm
-    dxgi
-    ole32
-)
